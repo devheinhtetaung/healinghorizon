@@ -1,0 +1,35 @@
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
+}
+
+/* Raised: for a page's primary/most important card, so importance
+   is expressed through elevation rather than extra borders. */
+.card--raised {
+  box-shadow: var(--shadow-md);
+}
+
+.card--hover {
+  cursor: pointer;
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card--hover:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+}
+
+.card--hover:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.card--hover:focus-visible {
+  box-shadow:
+    0 0 0 var(--focus-ring-offset) var(--color-background),
+    0 0 0 calc(var(--focus-ring-offset) + 2px) var(--color-ring);
+}

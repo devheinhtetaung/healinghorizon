@@ -1,0 +1,569 @@
+.vsession {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 62rem;
+  margin: 0 auto;
+}
+
+.vsession__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-muted-foreground);
+  align-self: flex-start;
+  transition: color var(--transition-fast);
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.vsession__back:hover {
+  color: var(--color-primary);
+}
+
+.vsession__back svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* ───────── Two-column Lobby Layout ───────── */
+.vsession__layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+/* ───────── Preview Card & Video Host ───────── */
+.vsession__preview-card {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.vsession__preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    160deg,
+    var(--color-primary-dark) 0%,
+    color-mix(in srgb, var(--color-primary-dark) 70%, var(--color-primary) 30%) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.vsession__preview--off {
+  background: var(--color-primary-dark);
+}
+
+.vsession__preview-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* Mirrored selfie feed */
+  border-radius: var(--radius-lg);
+}
+
+.vsession__preview-video--hidden {
+  display: none;
+}
+
+.vsession__preview-off-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-surface);
+  text-align: center;
+}
+
+.vsession__preview-off-text {
+  font-size: var(--text-sm);
+  color: color-mix(in srgb, var(--color-surface) 80%, transparent);
+}
+
+/* ───────── Permission Blocked Overlay ───────── */
+.vsession__permission-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(18, 63, 58, 0.94);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  text-align: center;
+  color: var(--color-surface);
+  gap: var(--space-3);
+}
+
+.vsession__perm-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--color-warning);
+}
+
+.vsession__perm-title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.vsession__perm-desc {
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  color: color-mix(in srgb, var(--color-surface) 80%, transparent);
+  max-width: 20rem;
+}
+
+/* ───────── Overlaid Controls Bar ───────── */
+.vsession__overlay-controls {
+  position: absolute;
+  bottom: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  background: rgba(18, 63, 58, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-lg);
+}
+
+.vsession__control-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--color-surface);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.vsession__control-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.vsession__control-btn--off {
+  background-color: var(--color-destructive);
+  color: var(--color-destructive-foreground);
+}
+
+.vsession__control-btn--off:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--color-destructive) 85%, var(--color-primary-dark) 15%);
+}
+
+.vsession__control-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.vsession__control-btn svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.vsession__overlay-status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-left: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-surface);
+  white-space: nowrap;
+}
+
+.vsession__status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.vsession__status-dot--ok {
+  background-color: var(--color-accent);
+}
+
+.vsession__status-dot--err {
+  background-color: var(--color-destructive);
+}
+
+.vsession__perms-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background-color: var(--color-muted);
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+}
+
+.vsession__perm-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.vsession__perm-row svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+/* ───────── Info Card & Appointment Meta ───────── */
+.vsession__info-card {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.vsession__info-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.vsession__info-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-foreground);
+}
+
+.vsession__consultant {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.vsession__consultant-name {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.vsession__consultant-specialty {
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+}
+
+.vsession__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.vsession__meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+}
+
+.vsession__meta-key {
+  color: var(--color-muted-foreground);
+}
+
+.vsession__meta-val {
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.vsession__join-btn {
+  width: 100%;
+}
+
+.vsession__security-note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+  line-height: var(--leading-xs);
+}
+
+.vsession__security-note svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* ───────── Card State (Waiting / Expired / Error) ───────── */
+.vsession__card-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-6);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  max-width: 32rem;
+  margin: var(--space-6) auto;
+}
+
+.vsession__state-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: var(--space-3);
+}
+
+.vsession__state-icon--info {
+  color: var(--color-primary);
+}
+
+.vsession__state-icon--warn {
+  color: var(--color-warning);
+}
+
+.vsession__state-icon--error {
+  color: var(--color-destructive);
+}
+
+.vsession__state-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-foreground);
+  margin-bottom: var(--space-2);
+}
+
+.vsession__state-text {
+  font-size: var(--text-base);
+  color: var(--color-muted-foreground);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-4);
+}
+
+.vsession__state-subtext {
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+  margin-bottom: var(--space-5);
+}
+
+.vsession__countdown-box {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  background-color: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+}
+
+.vsession__countdown-box svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* ---------- live countdown (final hour before the lobby opens) ---------- */
+
+.vsession__countdown-box--live {
+  background-color: color-mix(in srgb, var(--color-accent) 18%, var(--color-surface));
+}
+
+.vsession__countdown-time {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.vsession__countdown-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+  animation: vsession-countdown-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes vsession-countdown-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vsession__countdown-dot {
+    animation: none;
+  }
+}
+
+.vsession__state-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.vsession__alert-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: color-mix(in srgb, var(--color-destructive) 10%, var(--color-surface));
+  border-color: var(--color-destructive);
+  color: var(--color-destructive);
+  font-size: var(--text-sm);
+}
+
+.vsession__alert-card svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* ───────── Connecting & Spinner State ───────── */
+.vsession__connecting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-10) var(--space-5);
+  text-align: center;
+}
+
+.vsession__connecting-text {
+  font-size: var(--text-base);
+  color: var(--color-muted-foreground);
+}
+
+/* ───────── Active Meeting View (Branded App Chrome) ───────── */
+.vsession--active-meeting {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background-color: var(--color-primary-dark);
+  max-width: none;
+  margin: 0;
+  gap: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.vsession__meeting-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4rem;
+  padding: 0 var(--space-6);
+  background-color: var(--color-primary-dark);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.vsession__meeting-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.vsession__meeting-consultant {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-surface);
+}
+
+.vsession__meeting-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.vsession__live-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  animation: livePulse 1.5s infinite;
+}
+
+@keyframes livePulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.vsession__iframe-container {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  background-color: #000;
+}
+
+.vsession__iframe-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ───────── Leave Modal ───────── */
+.vsession__leave-modal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.vsession__leave-text {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-foreground);
+}
+
+.vsession__leave-actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+}
+
+/* ───────── Responsive Layout ───────── */
+@media (max-width: 800px) {
+  .vsession__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .vsession__info-card {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .vsession__meeting-header {
+    padding: 0 var(--space-3);
+  }
+
+  .vsession__meeting-consultant {
+    display: none;
+  }
+}

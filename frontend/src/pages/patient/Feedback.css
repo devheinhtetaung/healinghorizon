@@ -1,0 +1,219 @@
+.feedback {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ───────── success ───────── */
+
+.feedback__success {
+  max-width: 30rem;
+  margin: var(--space-8) auto;
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+}
+
+.feedback__success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+.feedback__success-icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.feedback__success-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-2xl);
+  color: var(--color-foreground);
+}
+
+.feedback__success-text {
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  color: var(--color-muted-foreground);
+}
+
+.feedback__success-rating {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.feedback__star-preview {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-border);
+}
+
+.feedback__star-preview--filled {
+  color: var(--color-warning);
+  fill: var(--color-warning);
+}
+
+/* ───────── layout ───────── */
+
+.feedback__layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+/* ───────── info card ───────── */
+
+.feedback__info-card {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.feedback__info-label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted-foreground);
+}
+
+.feedback__consultant {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.feedback__consultant-name {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.feedback__consultant-specialty {
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  margin-top: var(--space-1);
+}
+
+.feedback__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.feedback__meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+}
+
+.feedback__meta-key {
+  color: var(--color-muted-foreground);
+}
+
+.feedback__meta-val {
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+/* ───────── form card ───────── */
+
+.feedback__form-card {
+  padding: var(--space-6);
+}
+
+.feedback__form-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-2xl);
+  color: var(--color-foreground);
+}
+
+.feedback__form-sub {
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-5);
+}
+
+.feedback__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* ───────── stars ───────── */
+
+.feedback__stars {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+}
+
+.feedback__star-btn {
+  color: var(--color-border);
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.feedback__star-btn:hover {
+  transform: scale(1.15);
+  color: var(--color-warning);
+}
+
+.feedback__star-btn--active {
+  color: var(--color-warning);
+  fill: var(--color-warning);
+}
+
+.feedback__star-btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.feedback__star-btn svg {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.feedback__rating-label {
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+}
+
+.feedback__submit {
+  width: 100%;
+}
+
+.feedback__note {
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+  text-align: center;
+  line-height: var(--leading-xs);
+}
+
+/* ───────── responsive ───────── */
+
+@media (max-width: 750px) {
+  .feedback__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .feedback__form-card {
+    padding: var(--space-5) var(--space-4);
+  }
+}

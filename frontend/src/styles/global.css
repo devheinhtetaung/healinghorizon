@@ -1,0 +1,118 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--color-foreground);
+  background-color: var(--color-background);
+}
+
+/* ---------- page transition ---------- */
+
+/* No animation-fill-mode: the end keyframe equals the element's base state,
+   and a persisted (fill-forwards) transform — even translateY(0) — makes this
+   wrapper the containing block for position:fixed descendants, which
+   collapsed the full-screen video-call overlay to its box. */
+.page-enter {
+  animation: page-enter 200ms var(--ease-out);
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- scroll reveal ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms var(--ease-in-out),
+    transform 600ms var(--ease-in-out);
+}
+
+/* Ends at `none`, not translateY(0)`: a static non-none transform poisons
+   fixed positioning for descendants the same way as fill-mode does. */
+.reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+
+h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-5xl);
+  font-weight: 400;
+  line-height: var(--leading-5xl);
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  font-weight: 400;
+  line-height: var(--leading-4xl);
+}
+
+h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  line-height: var(--leading-3xl);
+}
+
+h4 {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  line-height: var(--leading-2xl);
+}
+
+h5 {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 400;
+  line-height: var(--leading-xl);
+}
+
+h6 {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 400;
+  line-height: var(--leading-lg);
+}
+
+:where(
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

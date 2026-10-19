@@ -1,0 +1,78 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.logo__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  overflow: hidden;
+}
+
+.logo--sm .logo__badge {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-sm);
+}
+
+.logo--lg .logo__badge {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.logo__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.logo--sm .logo__icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.logo--lg .logo__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.logo__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
+.logo__wordmark {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--color-foreground);
+}
+
+.logo--sm .logo__wordmark {
+  font-size: var(--text-base);
+}
+
+.logo--lg .logo__wordmark {
+  font-size: var(--text-2xl);
+}
+
+/* Light variant for dark backgrounds */
+.logo--light .logo__badge {
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+.logo--light .logo__wordmark {
+  color: var(--color-surface);
+}

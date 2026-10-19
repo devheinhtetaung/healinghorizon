@@ -1,0 +1,104 @@
+.select-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+  max-width: 100%;
+}
+
+.select-label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-foreground);
+}
+
+.select-field-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  padding-right: var(--space-7);
+  font-size: var(--text-base);
+  font-family: var(--font-sans);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-foreground);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  min-height: var(--space-8);
+  appearance: none;
+  cursor: pointer;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--color-ring);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ring) 30%, transparent);
+}
+
+.select:disabled {
+  background-color: var(--color-muted);
+  color: var(--color-muted-foreground);
+  cursor: not-allowed;
+}
+
+.select-chevron {
+  position: absolute;
+  right: var(--space-3);
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-muted-foreground);
+  pointer-events: none;
+}
+
+.select-wrapper--error .select {
+  border-color: var(--color-destructive);
+  padding-right: var(--space-9);
+}
+
+.select-wrapper--error .select:focus {
+  border-color: var(--color-destructive);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-destructive) 20%, transparent);
+}
+
+.select-wrapper--error .select-chevron {
+  right: calc(var(--space-3) + 1.5rem);
+}
+
+.select-icon-error {
+  position: absolute;
+  right: var(--space-3);
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--color-destructive);
+  pointer-events: none;
+}
+
+.select-message {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  margin-top: var(--space-1);
+}
+
+.select-message--error {
+  color: color-mix(in srgb, var(--color-destructive) 90%, var(--color-primary-dark) 10%);
+  font-weight: 500;
+}
+
+.select-message--helper {
+  color: var(--color-muted-foreground);
+}
+
+.select-message-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+  color: color-mix(in srgb, var(--color-destructive) 90%, var(--color-primary-dark) 10%);
+}

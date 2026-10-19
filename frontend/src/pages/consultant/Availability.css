@@ -1,0 +1,588 @@
+/* ==========================================================================
+   Consultant Availability Page — Healing Horizon
+   Two-panel layout: weekly recurring editor + month override calendar.
+   ========================================================================== */
+
+.avail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: 100%;
+}
+
+.avail__loading {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-9) 0;
+}
+
+.avail__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.avail__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-foreground);
+  margin: 0;
+}
+
+.avail__subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  margin: var(--space-1) 0 0;
+}
+
+.avail__layout {
+  display: grid;
+  grid-template-columns: minmax(24rem, 34rem) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.avail__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.avail__section-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-foreground);
+  margin: 0;
+}
+
+.avail__section-title svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.avail__section-hint {
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+}
+
+/* ───────── weekly editor ───────── */
+
+.avail__weekly {
+  padding: var(--space-6);
+}
+
+.avail__week-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.avail__week-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+}
+
+.avail__week-row:not(:last-child) {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+}
+
+.avail__week-row--off .avail__day-name {
+  color: var(--color-muted-foreground);
+}
+
+.avail__day-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  min-width: 8.5rem;
+  flex-shrink: 0;
+}
+
+.avail__day-toggle input {
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.avail__day-cue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-surface);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.avail__day-cue svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--color-primary-foreground);
+}
+
+.avail__day-toggle input:checked + .avail__day-cue {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.avail__day-toggle input:focus-visible + .avail__day-cue {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.avail__day-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.avail__day-range {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  min-width: 0;
+}
+
+.avail__time-select {
+  flex: 1;
+  min-width: 0;
+}
+
+.avail__range-sep {
+  color: var(--color-muted-foreground);
+  flex-shrink: 0;
+}
+
+.avail__range-invalid {
+  flex-shrink: 0;
+}
+
+.avail__day-off {
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--color-muted-foreground);
+  flex: 1;
+}
+
+.avail__day-copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  color: var(--color-muted-foreground);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.avail__day-copy:hover {
+  background-color: var(--color-muted);
+  color: var(--color-primary);
+}
+
+.avail__day-copy svg {
+  width: 0.9375rem;
+  height: 0.9375rem;
+}
+
+/* ───────── override calendar ───────── */
+
+.avail__calendar {
+  padding: var(--space-6);
+}
+
+.avail__cal-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.avail__cal-nav button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-foreground);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.avail__cal-nav button:hover {
+  background-color: var(--color-muted);
+  border-color: var(--color-primary);
+}
+
+.avail__cal-nav button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.avail__cal-month {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-foreground);
+  min-width: 9rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.avail__cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-1);
+}
+
+.avail__cal-weekday {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1) 0;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted-foreground);
+}
+
+.avail__cal-cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2px;
+  min-height: 3.25rem;
+  padding: var(--space-2) var(--space-1);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+  font-family: var(--font-sans);
+}
+
+.avail__cal-cell:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.avail__cal-cell:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.avail__cal-cell--pad {
+  border: none;
+  background: transparent;
+  cursor: default;
+  min-height: 0;
+  padding: 0;
+}
+
+.avail__cal-cell--past {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.avail__cal-day {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+/* State 1: normal recurring day — soft brand tint with a center dot */
+.avail__cal-cell--normal {
+  background-color: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));
+}
+
+.avail__cal-dot {
+  width: 0.3125rem;
+  height: 0.3125rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+}
+
+/* State 2: overridden-closed — muted grey with a clear X mark */
+.avail__cal-cell--closed-recurring {
+  background-color: var(--color-muted);
+}
+
+.avail__cal-cell--blocked {
+  background-color: color-mix(in srgb, var(--color-muted-foreground) 18%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--color-muted-foreground) 35%, var(--color-border));
+}
+
+.avail__cal-cell--blocked .avail__cal-day {
+  color: var(--color-muted-foreground);
+}
+
+/* State 3: overridden-extra-open — accent tint with a plus mark */
+.avail__cal-cell--extra-open {
+  background-color: color-mix(in srgb, var(--color-accent) 14%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+}
+
+.avail__cal-cell-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0.875rem;
+}
+
+.avail__cal-cell-mark svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.avail__cal-cell--blocked .avail__cal-cell-mark svg {
+  color: var(--color-muted-foreground);
+}
+
+.avail__cal-cell--extra-open .avail__cal-cell-mark svg {
+  color: var(--color-primary);
+}
+
+.avail__cal-cell-detail {
+  font-size: 0.625rem;
+  color: var(--color-foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+.avail__legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+}
+
+.avail__legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+  font-weight: 500;
+}
+
+.avail__legend-swatch {
+  width: 1rem;
+  height: 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.avail__legend-swatch--normal {
+  background-color: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));
+}
+
+.avail__legend-swatch--blocked {
+  background-color: color-mix(in srgb, var(--color-muted-foreground) 18%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--color-muted-foreground) 35%, var(--color-border));
+}
+
+.avail__legend-swatch--extra {
+  background-color: color-mix(in srgb, var(--color-accent) 14%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+}
+
+.avail__override-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background-color: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+  font-size: var(--text-sm);
+  color: var(--color-foreground);
+}
+
+.avail__override-summary svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* ───────── override editor modal ───────── */
+
+.avail__editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.avail__editor-context {
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background-color: var(--color-muted);
+}
+
+.avail__editor-context strong {
+  color: var(--color-foreground);
+}
+
+.avail__editor-modes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.avail__mode {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-surface);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.avail__mode svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-primary);
+}
+
+.avail__mode:hover {
+  border-color: var(--color-primary);
+}
+
+.avail__mode--active {
+  border-color: var(--color-primary);
+  background-color: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+  box-shadow: var(--shadow-sm);
+}
+
+.avail__mode-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-foreground);
+}
+
+.avail__mode-desc {
+  font-size: var(--text-xs);
+  line-height: var(--leading-xs);
+  color: var(--color-muted-foreground);
+}
+
+.avail__editor-range {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.avail__editor-range .select-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.avail__editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+/* ───────── responsive ───────── */
+
+@media (max-width: 1023px) {
+  .avail__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .avail__header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .avail__header .btn {
+    width: 100%;
+  }
+
+  .avail__week-row {
+    flex-wrap: wrap;
+  }
+
+  .avail__day-range {
+    width: 100%;
+    order: 3;
+  }
+
+  .avail__day-copy {
+    margin-left: auto;
+  }
+
+  .avail__cal-cell {
+    min-height: 2.75rem;
+  }
+
+  .avail__cal-cell-detail {
+    display: none;
+  }
+
+  .avail__legend {
+    gap: var(--space-3);
+  }
+
+  .avail__editor-modes {
+    grid-template-columns: 1fr;
+  }
+
+  .avail__editor-range {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .avail__editor-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+}

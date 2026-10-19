@@ -1,0 +1,909 @@
+/* ==========================================================================
+   Book Appointment Page Styles — Healing Horizon
+   ========================================================================== */
+
+.book {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-section-gap);
+  width: 100%;
+}
+
+/* ========================================
+   1. STEP INDICATOR
+   ======================================== */
+
+.book__steps-wrapper {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-6);
+  box-shadow: var(--shadow-sm);
+  scroll-margin-top: var(--space-8);
+}
+
+.book__steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  width: 100%;
+}
+
+.book__step {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+  position: relative;
+}
+
+.book__step:not(:last-child)::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background-color: var(--color-border);
+  margin: 0 var(--space-4);
+  transition: background-color var(--transition-fast);
+}
+
+.book__step--done:not(:last-child)::after {
+  background-color: var(--color-accent);
+}
+
+.book__step--active:not(:last-child)::after {
+  background-color: var(--color-primary);
+}
+
+.book__step-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-border);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-muted-foreground);
+  background-color: var(--color-surface);
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.book__step-circle svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.book__step--done .book__step-circle {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+.book__step--active .book__step-circle {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 18%, transparent);
+}
+
+.book__step-label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-muted-foreground);
+  white-space: nowrap;
+}
+
+.book__step--active .book__step-label {
+  color: var(--color-foreground);
+  font-weight: 700;
+}
+
+.book__step--done .book__step-label {
+  color: var(--color-foreground);
+  font-weight: 600;
+}
+
+/* Completed steps are clickable links back — navigating back preserves all
+   selections; only an explicit re-selection resets downstream choices. */
+.book__step--link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+}
+
+.book__step--link:hover .book__step-label {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.book__step--link:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* ========================================
+   2. WIZARD STEP PANELS & FOOTER NAVIGATION
+   ======================================== */
+
+.book__step-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  animation: book-step-enter 240ms var(--ease-out) both;
+}
+
+@keyframes book-step-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.book__step-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding-top: var(--space-2);
+}
+
+.book__step-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  font-weight: 500;
+}
+
+.book__step-hint--done {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.book__step-hint svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.book__step-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ========================================
+   3. FILTERS & QUICK PILLS
+   ======================================== */
+
+.book__filters-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  box-shadow: var(--shadow-sm);
+}
+
+.book__filters-row {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+.book__search {
+  flex: 1;
+  min-width: 0;
+}
+
+.book__specialty {
+  width: 15rem;
+  flex-shrink: 0;
+}
+
+.book__filter-pills {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent);
+}
+
+.book__filter-pills-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-muted-foreground);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-right: var(--space-1);
+}
+
+.book__filter-icon {
+  width: 0.8125rem;
+  height: 0.8125rem;
+}
+
+.book__filter-pill {
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  font-family: var(--font-sans);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-muted-foreground);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.book__filter-pill:hover {
+  border-color: var(--color-primary);
+  color: var(--color-foreground);
+  background-color: var(--color-muted);
+}
+
+.book__filter-pill--active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.book__filter-pill--active:hover {
+  background-color: var(--color-primary-dark);
+  color: var(--color-primary-dark-foreground);
+  border-color: var(--color-primary-dark);
+}
+
+/* ========================================
+   4. CONSULTANT SECTION & GRID
+   ======================================== */
+
+.book__consultants-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.book__section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 var(--space-1);
+}
+
+.book__section-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-foreground);
+  margin: 0;
+}
+
+.book__section-count {
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+  font-weight: 500;
+}
+
+.book__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-5);
+}
+
+.book__consultant {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  position: relative;
+}
+
+.book__consultant:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--color-primary) 60%, var(--color-border));
+  box-shadow: var(--shadow-md);
+}
+
+/* Enhanced Selected State Visual Weight */
+.book__consultant--selected {
+  background-color: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1.5px var(--color-primary), var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.book__consultant-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.book__consultant-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.book__verified {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-success);
+}
+
+.book__verified svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.book__consultant-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.book__consultant-name {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  font-family: var(--font-sans);
+  color: var(--color-foreground);
+  margin: 0;
+}
+
+.book__consultant-bio {
+  font-size: var(--text-xs);
+  line-height: var(--leading-sm);
+  color: var(--color-muted-foreground);
+  margin: 0;
+}
+
+.book__consultant-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.book__tag-badge {
+  font-size: 0.6875rem;
+  padding: 0.125rem 0.4375rem;
+}
+
+.book__consultant-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+}
+
+.book__avail-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+  font-weight: 500;
+}
+
+.book__avail-icon {
+  width: 0.8125rem;
+  height: 0.8125rem;
+  color: var(--color-primary);
+}
+
+.book__selected-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.book__selected-tag svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.book__select-prompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-primary);
+  transition: gap var(--transition-fast);
+}
+
+.book__consultant:hover .book__select-prompt {
+  gap: 4px;
+}
+
+.book__select-prompt svg {
+  width: 0.8125rem;
+  height: 0.8125rem;
+}
+
+.book__empty-card {
+  grid-column: 1 / -1;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.book__empty {
+  font-size: var(--text-base);
+  color: var(--color-muted-foreground);
+  margin: 0;
+}
+
+/* ========================================
+   5. STEP 2 — SCHEDULE PANEL & TIME SLOTS
+   ======================================== */
+
+.book__schedule-card {
+  padding: var(--space-6);
+  background-color: var(--color-surface);
+  border: 1.5px solid color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Compact consultant summary carried over from Step 1 */
+.book__context-chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, var(--color-border));
+  border-radius: var(--radius-lg);
+}
+
+.book__context-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.book__context-name {
+  font-size: var(--text-base);
+  font-weight: 700;
+  font-family: var(--font-sans);
+  color: var(--color-foreground);
+}
+
+.book__context-sub {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--color-muted-foreground);
+}
+
+.book__context-verified {
+  width: 0.8125rem;
+  height: 0.8125rem;
+  color: var(--color-success);
+}
+
+.book__context-change {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast);
+}
+
+.book__context-change:hover {
+  background-color: color-mix(in srgb, var(--color-primary) 8%, transparent);
+}
+
+.book__schedule-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.book__date-picker {
+  max-width: 20rem;
+}
+
+/* Clustered Time Slot Container */
+
+.book__slots-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.book__slots-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.book__slots-header-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--color-primary);
+}
+
+.book__slots-header-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-foreground);
+}
+
+.book__slots-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+}
+
+.book__slots-container {
+  background-color: color-mix(in srgb, var(--color-surface-alt, #f7f9f7) 75%, var(--color-surface));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.book__period-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.book__period-title {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted-foreground);
+}
+
+.book__slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: var(--space-3);
+}
+
+.book__slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-2);
+  min-height: 3rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-foreground);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.book__slot-time {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: var(--font-sans);
+}
+
+.book__slot-status {
+  font-size: 0.6875rem;
+  color: var(--color-muted-foreground);
+  margin-top: 1px;
+}
+
+.book__slot:hover:not(:disabled) {
+  border-color: var(--color-primary);
+  background-color: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+}
+
+.book__slot:disabled {
+  background-color: var(--color-muted);
+  color: var(--color-muted-foreground);
+  cursor: not-allowed;
+  border-color: var(--color-border);
+  opacity: 0.65;
+}
+
+.book__slot:disabled .book__slot-time {
+  text-decoration: line-through;
+}
+
+.book__slot--active {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.book__slot--active:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  color: var(--color-primary-dark-foreground);
+}
+
+.book__slot:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* ========================================
+   6. STEP 3 — REVIEW & CONFIRM
+   ======================================== */
+
+.book__review-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.book__review-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background-color: color-mix(in srgb, var(--color-primary) 3%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, var(--color-border));
+}
+
+.book__review-consultant {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.book__schedule-summary-callout {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  font-weight: 500;
+}
+
+.book__callout-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.book__confirm-btn {
+  min-width: 15rem;
+}
+
+/* ========================================
+   7. CONFIRMATION MODAL
+   ======================================== */
+
+.book__confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+  padding: var(--space-2) 0;
+}
+
+.book__confirm-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-full);
+  background-color: color-mix(in srgb, var(--color-success) 18%, var(--color-surface));
+  color: var(--color-success);
+}
+
+.book__confirm-icon svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.book__confirm-lead {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-foreground);
+  margin: 0;
+}
+
+.book__confirm-sub {
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  max-width: 24rem;
+  margin: 0;
+}
+
+.book__confirm-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-muted);
+  border: 1px solid var(--color-border);
+}
+
+.book__confirm-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+}
+
+.book__confirm-key {
+  color: var(--color-muted-foreground);
+  font-weight: 500;
+}
+
+.book__confirm-val {
+  font-weight: 700;
+  color: var(--color-foreground);
+}
+
+.book__modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.book__modal-done-btn {
+  width: 100%;
+}
+
+/* ========================================
+   7. TABLET & RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+@media (max-width: 1023px) {
+  .book__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .book__specialty {
+    width: 13rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .book__steps-wrapper {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .book__step-label {
+    display: none;
+  }
+
+  .book__step-panel {
+    gap: var(--space-4);
+  }
+
+  .book__filters-row {
+    flex-direction: column;
+  }
+
+  .book__specialty {
+    width: 100%;
+  }
+
+  .book__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .book__schedule-card {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .book__context-chip {
+    flex-wrap: wrap;
+  }
+
+  .book__context-change {
+    margin-left: auto;
+  }
+
+  .book__step-footer {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .book__step-hint {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .book__step-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .book__step-actions .btn,
+  .book__confirm-btn {
+    width: 100%;
+  }
+
+  .book__confirm-btn {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .book__slots-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .book__confirm-row {
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+}

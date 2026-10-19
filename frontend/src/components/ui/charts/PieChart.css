@@ -1,0 +1,12 @@
+.pie {
+  display: block;
+  flex-shrink: 0;
+}
+
+.pie__track {
+  stroke: var(--color-muted);
+}
+
+.pie__segment {
+  transition: stroke-dasharray 400ms var(--ease-out);
+}

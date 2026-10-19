@@ -1,0 +1,8 @@
+# Secrets / local config — never commit
+.env
+
+# JaaS private keys (downloaded .pk / .pem files)
+*.pk
+*.pem
+*.key
+*.p8

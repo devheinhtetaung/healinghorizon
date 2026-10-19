@@ -1,0 +1,69 @@
+/* ==========================================================================
+   Dashboard Layout & Shared Authenticated Portal Styles
+   ========================================================================== */
+
+.dashboard-layout,
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.dashboard-layout__body,
+.dashboard__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Pages own their top-level heading; the layout renders no title banner. */
+.page-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-2xl);
+  color: var(--color-foreground);
+  margin: 0;
+}
+
+.dashboard-layout__content,
+.dashboard__content {
+  flex: 1;
+  padding: var(--space-5) var(--space-6) var(--space-footer-gap);
+  background-color: var(--color-background);
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* ---------- public layout ---------- */
+
+.public-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.public-layout__main {
+  flex: 1;
+  /* Content-to-footer separation: a page-background band before the footer
+     on every public page, so the footer reads as its own section. */
+  padding-bottom: var(--space-footer-gap);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 1023px) {
+  .page-title {
+    font-size: var(--text-xl);
+    line-height: var(--leading-xl);
+  }
+
+  .dashboard-layout__content,
+  .dashboard__content {
+    padding: var(--space-4) var(--space-4) var(--space-7);
+  }
+}

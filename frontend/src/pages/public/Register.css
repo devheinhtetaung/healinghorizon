@@ -1,0 +1,325 @@
+/* ==========================================================================
+   Register Split-Screen Page Styles — Healing Horizon
+   ========================================================================== */
+
+.register-page {
+  display: flex;
+  background-color: var(--color-background);
+  padding: var(--space-8) var(--space-6) 0;
+}
+
+.auth-split--register {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 36rem;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ========================================
+   BRAND / VALUE PROP PANEL (LEFT)
+   ======================================== */
+
+.auth-brand-panel--register {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-8) var(--space-8);
+}
+
+.auth-brand-panel--register::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 20%, color-mix(in srgb, var(--color-accent) 15%, transparent), transparent),
+    radial-gradient(ellipse 70% 70% at 80% 80%, color-mix(in srgb, var(--color-primary-dark) 45%, transparent), transparent);
+  pointer-events: none;
+}
+
+/* Abstract decorative concentric rings */
+.auth-brand-panel--register::after {
+  content: '';
+  position: absolute;
+  right: -8rem;
+  bottom: -8rem;
+  width: 24rem;
+  height: 24rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid color-mix(in srgb, var(--color-accent) 20%, transparent);
+  box-shadow: inset 0 0 0 4rem color-mix(in srgb, var(--color-accent) 5%, transparent);
+  pointer-events: none;
+}
+
+.auth-register-pitch__headline {
+  font-family: var(--font-heading);
+  font-size: clamp(var(--text-xl), 2vw, var(--text-2xl));
+  line-height: var(--leading-xl);
+  color: var(--color-primary-foreground);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+/* Features List */
+
+.auth-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+}
+
+.auth-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.auth-feature-item__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-md);
+  background-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  color: var(--color-accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.auth-feature-item__icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.auth-feature-item__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.auth-feature-item__title {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary-foreground);
+  margin: 0;
+}
+
+.auth-feature-item__desc {
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--color-primary-foreground) 75%, transparent);
+  margin: 0;
+}
+
+/* ========================================
+   FORM PANEL (RIGHT)
+   ======================================== */
+
+.auth-form-panel--register {
+  background-color: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-7);
+}
+
+.auth-form-wrapper--register {
+  width: 100%;
+  max-width: 36rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.register-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.register-form__password-field {
+  position: relative;
+}
+
+.register-form__password-toggle {
+  position: absolute;
+  right: var(--space-2);
+  top: var(--space-7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-muted-foreground);
+  transition: color var(--transition-fast);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.register-form__password-toggle:hover {
+  color: var(--color-foreground);
+}
+
+.register-form__password-toggle svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.register-form__checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  color: var(--color-muted-foreground);
+  user-select: none;
+}
+
+.register-form__checkbox input {
+  appearance: none;
+  -webkit-appearance: none;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.register-form__checkbox-cue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+  background-color: var(--color-surface);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  flex-shrink: 0;
+  position: relative;
+  margin-top: 2px;
+}
+
+.register-form__checkbox input:checked + .register-form__checkbox-cue {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.register-form__checkbox input:checked + .register-form__checkbox-cue::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 6px;
+  height: 10px;
+  border: solid var(--color-primary-foreground);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.register-form__checkbox input:focus-visible + .register-form__checkbox-cue {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.register-form__checkbox-label {
+  line-height: var(--leading-sm);
+}
+
+.register-form__submit {
+  width: 100%;
+  margin-top: var(--space-1);
+}
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+@media (max-width: 1023px) {
+  .auth-split--register {
+    grid-template-columns: 42% 58%;
+  }
+
+  .auth-brand-panel--register {
+    padding: var(--space-7) var(--space-6);
+  }
+
+  .auth-form-panel--register {
+    padding: var(--space-7) var(--space-5);
+  }
+}
+
+@media (max-width: 767px) {
+  .register-page {
+    padding: var(--space-6) var(--space-4) 0;
+  }
+
+  .auth-split--register {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  .auth-brand-panel--register {
+    padding: var(--space-6) var(--space-5);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .auth-brand-panel--register::after {
+    display: none;
+  }
+
+  .auth-brand-panel--register .auth-brand-panel__inner {
+    gap: var(--space-4);
+  }
+
+  .auth-brand-panel--register .auth-features,
+  .auth-brand-panel--register .auth-brand-trust {
+    display: none;
+  }
+
+  .auth-brand-panel--register .auth-brand-panel__top {
+    justify-content: center;
+  }
+
+  .auth-brand-panel--register .auth-brand-panel__center {
+    align-items: center;
+    text-align: center;
+    margin: 0;
+  }
+
+  .auth-register-pitch__headline {
+    font-size: var(--text-base);
+    line-height: var(--leading-base);
+  }
+
+  .auth-form-panel--register {
+    padding: var(--space-7) var(--space-4) var(--space-8);
+  }
+
+  .register-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-form-wrapper--register {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Chart primitives — Healing Horizon
+   Token-styled SVG/CSS charts, no external dependency.
+   ========================================================================== */
+
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.chart__grid {
+  stroke: var(--color-border);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  opacity: 0.6;
+}
+
+.chart__axis-label {
+  font-size: 9px;
+  fill: var(--color-muted-foreground);
+  font-family: var(--font-sans);
+}
+
+.chart__line {
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart__dot {
+  stroke: var(--color-surface);
+  stroke-width: 1.5;
+}
+
+.chart__bar {
+  opacity: 0.9;
+}
+
+/* ---------- horizontal distribution ---------- */
+
+.hbar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.hbar__row {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr 2.75rem;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.hbar__label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-muted-foreground);
+  text-align: right;
+}
+
+.hbar__track {
+  height: 0.625rem;
+  border-radius: var(--radius-full);
+  background-color: var(--color-muted);
+  overflow: hidden;
+}
+
+.hbar__fill {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary);
+  transition: width 400ms var(--ease-out);
+}
+
+.hbar__value {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-foreground);
+  font-variant-numeric: tabular-nums;
+}

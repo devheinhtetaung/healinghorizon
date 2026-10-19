@@ -1,0 +1,201 @@
+/* ==========================================================================
+   AvatarUpload — profile photo upload control shared by the Patient,
+   Consultant, and Admin profile pages.
+   Camera overlay on the avatar (hover on pointer devices, persistent
+   corner badge on touch), preview + confirm/cancel, uploading scrim.
+   ========================================================================== */
+
+.avatar-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ---------- avatar frame + overlays ---------- */
+
+.avatar-upload__frame {
+  position: relative;
+  display: inline-block;
+  border-radius: var(--radius-full);
+}
+
+.avatar-upload__trigger {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: color-mix(in srgb, var(--color-primary-dark) 58%, transparent);
+  color: var(--color-primary-foreground);
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.avatar-upload__trigger svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.avatar-upload__trigger:hover:not(:disabled),
+.avatar-upload__trigger:focus-visible {
+  opacity: 1;
+}
+
+.avatar-upload__trigger:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.avatar-upload__trigger:disabled {
+  cursor: not-allowed;
+}
+
+/* Touch devices get a persistent corner badge instead of a hover scrim,
+   so the affordance is visible without hover. */
+@media (hover: none) {
+  .avatar-upload__trigger {
+    inset: auto;
+    right: -0.25rem;
+    bottom: -0.25rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    opacity: 1;
+    background-color: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .avatar-upload__trigger svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
+
+.avatar-upload__scrim {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: color-mix(in srgb, var(--color-primary-dark) 58%, transparent);
+  color: var(--color-primary-foreground);
+}
+
+/* ---------- controls under the avatar ---------- */
+
+.avatar-upload__controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.avatar-upload__change {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-1);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  font-family: var(--font-sans);
+  color: var(--color-primary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.avatar-upload__change:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.avatar-upload__change:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.avatar-upload__change:disabled {
+  color: var(--color-muted-foreground);
+  cursor: not-allowed;
+}
+
+.avatar-upload__change svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.avatar-upload__remove {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-1);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  font-family: var(--font-sans);
+  color: color-mix(in srgb, var(--color-destructive) 90%, var(--color-primary-dark) 10%);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.avatar-upload__remove:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.avatar-upload__remove:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.avatar-upload__remove svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
+.avatar-upload__preview-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.avatar-upload__hint {
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  color: var(--color-muted-foreground);
+  margin: 0;
+  text-align: center;
+}
+
+.avatar-upload__error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  line-height: var(--leading-sm);
+  color: color-mix(in srgb, var(--color-destructive) 90%, var(--color-primary-dark) 10%);
+  margin: 0;
+  text-align: left;
+  max-width: 16rem;
+}
+
+.avatar-upload__error svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: color-mix(in srgb, var(--color-destructive) 90%, var(--color-primary-dark) 10%);
+}
+
+/* ---------- hidden file input ---------- */
+
+.avatar-upload__input {
+  display: none;
+}
