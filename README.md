@@ -1,6 +1,6 @@
 # Healing Horizon
 
-A full-stack mental health platform designed for university students. Patients connect with licensed consultants, chat with an AI wellness companion ("Aura"), join a peer community, book secure video sessions, and donate — all from one accessible application. Consultants manage appointments, track patient progress, write session summaries, and make referrals. Administrators manage users, consultants, hospitals, surveys, feedback, and platform-wide content.
+A full-stack mental health platform designed for Myanmar. Patients connect with licensed consultants, chat with an AI wellness companion ("Aura"), join a peer community, book secure video sessions, and donate — all from one accessible application. Consultants manage appointments, track patient progress, write session summaries, and make referrals. Administrators manage users, consultants, hospitals, surveys, feedback, and platform-wide content.
 
 ## Tech Stack
 
