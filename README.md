@@ -71,17 +71,7 @@ A full-stack mental health platform designed for Myanmar. Patients connect with 
 - **JaaS video authentication** — every participant receives a short-lived, per-appointment JWT signed with the JaaS RSA key; the consultant is the moderator.
 - **Community upvoting** — per-user, per-post upvote tracking so a second click un-votes (toggle, not repeat-increment).
 
-## Screenshots
 
-> Place screenshot files in a `screenshots/` folder at the repo root before final submission. Suggested captures:
-> - Landing page (Hero + feature cards)
-> - Login page with validation error
-> - Patient Dashboard with appointments and progress bars
-> - "Aura" AI chat widget (open)
-> - Book Appointment page with consultant grid
-> - Community Forum feed + comment thread
-> - Consultant Dashboard with date-grouped appointments
-> - Admin User Management table
 
 ## Known Limitations
 
